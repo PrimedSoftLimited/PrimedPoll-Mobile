@@ -1,22 +1,31 @@
 package com.primedsoft.primedpoll.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.primedsoft.primedpoll.Adapter.InterestAdpter;
 import com.primedsoft.primedpoll.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
         public static final String GOOGLE_ACCOUNT = "google_account";
-        private TextView profileName, profileEmail;
-        private ImageView profileImage;
-        private Button signOut;
+        private TextView profileName, bio;
+        private CircleImageView profileImage;
+        private InterestAdpter mAdapter;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
+            Toolbar myToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+            setSupportActionBar(myToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            profileName = findViewById(R.id.username);
+            profileImage = findViewById(R.id.profile_image);
+            bio = findViewById(R.id.bio);
 
         }
 

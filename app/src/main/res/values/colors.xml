@@ -2,11 +2,13 @@
 <resources>
     <color name="colorPrimary">#FF7043</color>
     <color name="colorPrimaryDark">#FF5722</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FB8C00</color>
 
-    <color name="colorOrange">#FB8C00</color>
+    <color name="colorOrange">#F58731</color>
+    <color name="coffeeBrown">#4b3930</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="grey_white">#E8CDC8C8</color>
 
 
 </resources>
