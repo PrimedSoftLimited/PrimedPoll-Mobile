@@ -1,11 +1,11 @@
 package com.primedsoft.primedpoll.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,8 +36,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.primedsoft.primedpoll.Models.Data;
 import com.primedsoft.primedpoll.Fragments.ResetPassword;
+import com.primedsoft.primedpoll.Models.Data;
 import com.primedsoft.primedpoll.R;
 import com.primedsoft.primedpoll.activity.ProfileUser;
 import com.primedsoft.primedpoll.activity.SignUp;
@@ -249,9 +248,9 @@ signUpText.setOnClickListener(new View.OnClickListener() {
         if (loginValidation()) return;
 
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
-        Data data = new Data(email, password);
-        apiInterface.login(data.getEmail(),
-                data.getPassword()).enqueue(new Callback<Data>() {
+        Data data1 = new Data(email, password);
+        apiInterface.login(data1.getEmail(),
+                data1.getPassword()).enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
                 Data data = response.body();
@@ -317,6 +316,7 @@ signUpText.setOnClickListener(new View.OnClickListener() {
             name = account != null ? account.getDisplayName() : null;
             email = account != null ? account.getEmail() : null;
             // you can store user data to SharedPreference
+
             AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
             firebaseAuthWithGoogle(credential);
         } else {

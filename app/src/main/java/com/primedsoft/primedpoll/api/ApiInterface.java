@@ -24,7 +24,7 @@ public interface ApiInterface {
     Call<Data> verification(@Header("Authorization") String token);
 
     @FormUrlEncoded
-    @POST("api/login")
+    @POST("api/user/login")
     Call<Data> login(@Field("email") String email,
                      @Field("password") String password);
 
@@ -38,6 +38,12 @@ public interface ApiInterface {
             @Field("verifycode") String verifyCode,
             @Field("password") String password,
             @Field("password_confirmation") String passwordConfirmation);
+
+    @FormUrlEncoded
+    @POST("api/register/verify")
+    Call<Data> verify(@Field("verifycode") String verifycode);
+
+
 
     @PUT("api/complete/registration")
     Call<Data> completeReg(
