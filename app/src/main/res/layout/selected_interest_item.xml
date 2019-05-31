@@ -7,9 +7,9 @@
 
 
     <Button
-        android:id="@+id/add_new_interest_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:id="@+id/selected_interest_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
         android:layout_marginStart="8dp"
@@ -17,7 +17,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_look3"
-        android:drawableEnd="@drawable/ic_add_circle_outline_black_24dp"
         android:gravity="start|center"
         android:padding="12dp"
         android:text="Interest"

@@ -1,7 +1,7 @@
 package com.primedsoft.primedpoll.Models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.primedsoft.primedpoll.User;
 
 import java.util.ArrayList;
 
@@ -18,24 +18,95 @@ public class Data {
     private String verifyCode;
     @SerializedName("message")
     private String message;
-    @SerializedName("first_name")
-    private String firstName;
-    @SerializedName("last_name")
-    private String lastName;
-    @SerializedName("dob")
-    private String dob;
     @SerializedName("success")
     private boolean success;
-    @SerializedName("phone")
-    private String phone;
     @SerializedName("token")
     private String token;
-    @SerializedName("user")
-    User UserObject;
+    @SerializedName("data")
     private Data data;
     private ArrayList<Data> dataArrayList;
     @SerializedName("interest")
-    private ArrayList<Interest> interestArrayList;
+    private String interest;
+    @SerializedName("user")
+    User userObject;
+    @SerializedName("Userinterests")
+    ArrayList<Interest> Userinterests = new ArrayList<>();
+    @SerializedName("first_name")
+    @Expose
+    private String first_name;
+    @SerializedName("last_name")
+    @Expose
+    private String last_name;
+    @SerializedName("dob")
+    private String dob;
+    @SerializedName("phone")
+    private String phone;
+
+    public Data(String first_name, String last_name, String phone, String dob, ArrayList<Interest> arrayList) {
+        this.token = token;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone = phone;
+        this.dob = dob;
+        this.Userinterests = arrayList;
+
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public User getUserObject() {
+        return userObject;
+    }
+
+    public void setUserObject(User userObject) {
+        this.userObject = userObject;
+    }
+
+    public ArrayList<Interest> getUserinterests() {
+        return Userinterests;
+    }
+
+    public void setUserinterests(ArrayList<Interest> userinterests) {
+        Userinterests = userinterests;
+    }
 
 
     public ArrayList<Data> getDataArrayList() {
@@ -46,18 +117,12 @@ public class Data {
         this.dataArrayList = dataArrayList;
     }
 
-    public ArrayList<Interest> getInterestArrayList() {
-        return interestArrayList;
-    }
 
-    public void setInterestArrayList(ArrayList<Interest> interestArrayList) {
-        this.interestArrayList = interestArrayList;
-    }
 
     public Data(Boolean success, String token, User UserOject){
         this.success = success;
         this.token = token;
-        this.UserObject = UserOject;
+        this.userObject = UserOject;
     }
 
     public Data(String message, Boolean verified){
@@ -81,45 +146,6 @@ public class Data {
     public Data() {
 
     }
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Data(String firstName, String lastName, String dob, String phone, String interests) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.phone = phone;
-    }
-
     public Data(String verifyCode, String password, String cnf_password) {
         this.verifyCode = verifyCode;
         this.password = password;
@@ -205,11 +231,7 @@ public class Data {
         this.success = success;
     }
 
-    public User getUser() {
-        return UserObject;
-    }
 
-    public void setUser(User userObject) {
-        UserObject = userObject;
+    private class User {
     }
 }

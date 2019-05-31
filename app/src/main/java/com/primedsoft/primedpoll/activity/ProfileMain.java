@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.primedsoft.primedpoll.Adapter.InterestAdapter;
+import com.primedsoft.primedpoll.Adapter.SelectedInterestAdapter;
 import com.primedsoft.primedpoll.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -15,7 +15,7 @@ public class ProfileMain extends AppCompatActivity {
     public static final String GOOGLE_ACCOUNT = "google_account";
     private TextView profileName, bio;
     private CircleImageView profileImage;
-    private InterestAdapter mAdapter;
+    private SelectedInterestAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

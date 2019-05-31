@@ -1,12 +1,14 @@
 package com.primedsoft.primedpoll.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.primedsoft.primedpoll.Adapter.AddInterestAdapter;
 import com.primedsoft.primedpoll.Models.Data;
@@ -28,6 +30,8 @@ public class AddNewInterest extends AppCompatActivity {
     private ArrayList<Interest> datalist = new ArrayList<>();
     FloatingActionButton fab;
     ProgressDialog progressDialog;
+    private FloatingActionButton addInterestFab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,7 @@ public class AddNewInterest extends AppCompatActivity {
         ApiInterface service = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
 
         /*Call the method with parameter in the interface to get the employee data*/
-        Call<ArrayList<Interest>> call = service.allInterest(token);
+        Call<ArrayList<Interest>> call = service.allInterest();
 call.enqueue(new Callback<ArrayList<Interest>>() {
     @Override
     public void onResponse(Call<ArrayList<Interest>> call, Response<ArrayList<Interest>> response) {
@@ -53,7 +57,15 @@ generateInterestList(response.body());    }
 progressDialog.dismiss();
     }
 });
-
+        addInterestFab = findViewById(R.id.add_interest_fab);
+        addInterestFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddNewInterest.this, CompleteReg.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
     }
 
     private void generateInterestList(ArrayList<Interest> interestArrayList) {

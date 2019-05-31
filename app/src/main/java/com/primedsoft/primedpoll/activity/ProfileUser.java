@@ -23,7 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.primedsoft.primedpoll.Adapter.InterestAdapter;
+import com.primedsoft.primedpoll.Adapter.SelectedInterestAdapter;
 import com.primedsoft.primedpoll.R;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +34,7 @@ public class ProfileUser extends AppCompatActivity implements GoogleApiClient.On
     private TextView user_name, user_email, user_phone, user_dob;
     private ImageView profile_img;
     private RecyclerView myInterest;
-    private InterestAdapter myAdapter;
+    private SelectedInterestAdapter myAdapter;
     private GoogleSignInOptions gso;
     private GoogleApiClient googleApiClient;
 

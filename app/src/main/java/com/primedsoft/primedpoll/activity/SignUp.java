@@ -18,8 +18,6 @@ import com.google.gson.Gson;
 import com.primedsoft.primedpoll.Activities.SignIn2Activity;
 import com.primedsoft.primedpoll.Models.Data;
 import com.primedsoft.primedpoll.R;
-import com.primedsoft.primedpoll.SharedPrefManager;
-import com.primedsoft.primedpoll.User;
 import com.primedsoft.primedpoll.api.ApiInterface;
 import com.primedsoft.primedpoll.api.RetrofitInstance;
 
@@ -34,7 +32,7 @@ public class SignUp extends AppCompatActivity {
     private TextView signin_txt;
     private CheckBox tac;
     private ProgressBar signup_progress;
-    private SharedPrefManager sharedPrefManager;
+//    private SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class SignUp extends AppCompatActivity {
         tac = (CheckBox) findViewById(R.id.tac_signup);
         signup_progress = (ProgressBar) findViewById(R.id.signup_progressbar);
         signin_txt = findViewById(R.id.sign_in_text);
-        sharedPrefManager = new SharedPrefManager(this);
+//        sharedPrefManager = new SharedPrefManager(this);
 
         signin_txt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,12 +137,12 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     String token = response.body().getToken();
 
-                    User data1 = response.body().getUser();
+//                    User data1 = response.body().getUserObject();
 
-                    Gson gson = new Gson();
-                    String userInfoListJsonString = gson.toJson(data1);
-
-                    sharedPrefManager.save(userInfoListJsonString);
+//                    Gson gson = new Gson();
+//                    String userInfoListJsonString = gson.toJson(data1);
+//
+//                    sharedPrefManager.save(userInfoListJsonString);
 
                     signup_progress.setVisibility(View.INVISIBLE);
 

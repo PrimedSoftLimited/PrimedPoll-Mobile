@@ -258,8 +258,9 @@ signUpText.setOnClickListener(new View.OnClickListener() {
                     String token = data != null ? data.getData().getToken() : null;
                     Toast.makeText(SignIn2Activity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                    Intent intent = new Intent(SignIn2Activity.this, AddNewInterest.class);
-                   intent.putExtra("token", token);
+                   intent.putExtra("token", "Bearer " + token);
                    startActivity(intent);
+
                 } else {
                     Toast.makeText(SignIn2Activity.this, "Not logged in", Toast.LENGTH_SHORT).show();
                 }
