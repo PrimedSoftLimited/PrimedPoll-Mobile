@@ -2,13 +2,13 @@ package com.primedsoft.primedpoll.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.primedsoft.primedpoll.Adapter.SelectedInterestAdapter;
-import com.primedsoft.primedpoll.Models.Data;
+import com.primedsoft.primedpoll.Models.CompleteRegistration;
 import com.primedsoft.primedpoll.Models.Interest;
 import com.primedsoft.primedpoll.R;
 import com.primedsoft.primedpoll.api.ApiInterface;
@@ -26,18 +26,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CompleteReg extends AppCompatActivity {
 
+    private static final String TAG = CompleteReg.class.getSimpleName();
     EditText firstNameEdit, lastNameEdit, phoneEdit, dobEdit;
     FloatingActionButton completeRegFab;
     private DatePickerDialog datePicker;
@@ -71,7 +67,7 @@ public class CompleteReg extends AppCompatActivity {
         completeRegFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable(){
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -88,32 +84,42 @@ public class CompleteReg extends AppCompatActivity {
                             String last_name = lastNameEdit.getText().toString();
                             String phone = phoneEdit.getText().toString();
                             String dob = dobEdit.getText().toString();
-                            Data data = new Data(first_name, last_name, phone, dob, arrayList);
-                            RequestBody body =
-                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(data));
 
-                            Call<ResponseBody> call = apiInterface.completeReg(token,body);
-                            call.enqueue(new Callback<ResponseBody>() {
-                                 @Override
-                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                     Gson gson = new Gson();
-                                     Type type = new TypeToken<ErrorResponse>() {}.getType();
-                                     ErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(),type);
-                                 }
+//                            Data data = new Data(first_name, last_name, phone, dob, arrayList);
+//                            RequestBody body =
+//                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(data));
 
-                                 @Override
-                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                            Call<CompleteRegistration.CompleteRegisterationResponseBody> call = apiInterface.completeReg(token,
+//                                    new CompleteRegistration(
+//                                            "frebby", "nama", "9999999999", dob, getInterestId()));
+                            Call<CompleteRegistration.CompleteRegisterationResponseBody> call = apiInterface.completeRegF(token,
+                                    first_name, last_name, phone, dob, getInterestIdStr());
+                            call.enqueue(new Callback<CompleteRegistration.CompleteRegisterationResponseBody>() {
+                                @Override
+                                public void onResponse(Call<CompleteRegistration.CompleteRegisterationResponseBody> call,
+                                                       Response<CompleteRegistration.CompleteRegisterationResponseBody> response) {
+                                    Log.e(TAG, "onResponse ----- isSuccess ----------- " + response.isSuccessful());
+                                    Log.e(TAG, "onResponse ----- message ----------- " + call.request().body().toString());
+                                    try {
+                                        Log.e(TAG, "onResponse ----- body ----------- " + response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.e(TAG, "onResponse ----- message ----------- " + response.raw());
+                                }
 
-                                 }
-                             });
+                                @Override
+                                public void onFailure(Call<CompleteRegistration.CompleteRegisterationResponseBody> call, Throwable t) {
+                                    Log.e(TAG, "onFailure ----- I DON FAIL OOOOH ----------- ");
+                                    Log.e(TAG, "onFailure ----- " + t.getMessage());
+                                }
+                            });
 
-                        }
-                        catch (Exception ex) {
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
                 }).start();
-
 
 
 //             data.setFirst_name(first_name);
@@ -121,7 +127,6 @@ public class CompleteReg extends AppCompatActivity {
 //data.setPhone(phone);
 //data.setDob(dob);
 //data.setUserinterests(arrayList);
-
 
 
 //                apiInterface.completeReg(
@@ -148,6 +153,33 @@ public class CompleteReg extends AppCompatActivity {
 //        });
             }
         });
+    }
+
+    private CompleteRegistration.InterestId[] getInterestId() {
+        CompleteRegistration.InterestId[] interestIds = new CompleteRegistration.InterestId[5];
+//        ArrayList<CompleteRegistration.InterestId> interestIds = new ArrayList<>();
+        interestIds[0] = new CompleteRegistration.InterestId("4");
+        interestIds[1] = new CompleteRegistration.InterestId("3");
+        interestIds[2] = new CompleteRegistration.InterestId("2");
+        interestIds[3] = new CompleteRegistration.InterestId("1");
+        interestIds[4] = new CompleteRegistration.InterestId("5");
+//        interestIds.add(new CompleteRegistration.InterestId("4"));
+//        interestIds.add(new CompleteRegistration.InterestId("3"));
+        return interestIds;
+    }
+
+    private int[] getInterestIdStr() {
+        int[] interestIds = {1, 2, 3, 4, 5, 6};
+//        ArrayList<CompleteRegistration.InterestId> interestIds = new ArrayList<>();
+//        interestIds[0] = "4";
+//        interestIds[1] = "3";
+//        interestIds[2] = "2";
+//        interestIds[3] = "1";
+//        interestIds[4] = "5";
+//        interestIds[5] = "6";
+//        interestIds.add(new CompleteRegistration.InterestId("4"));
+//        interestIds.add(new CompleteRegistration.InterestId("3"));
+        return interestIds;
     }
 
     public void datePicker(final EditText date) {
