@@ -2,6 +2,7 @@ package com.primedsoft.primedpoll.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompleteRegistration {
@@ -18,16 +19,39 @@ public class CompleteRegistration {
     @SerializedName("dob")
     private String dob;
 
-    @SerializedName("interests")
-    private List<InterestId> interests;
 
-    public CompleteRegistration(String firstName, String lastName, String phoneNum, String dob, List<InterestId> interests) {
+    @SerializedName("Userinterests")
+    private ArrayList<userInterests> userInterests;
+
+
+    public class userInterests{
+        @SerializedName("interest_ids")
+        private Interest interests;
+    }
+
+    public ArrayList<CompleteRegistration.userInterests> getUserInterests() {
+        return userInterests;
+    }
+
+    public void setUserInterests(ArrayList<CompleteRegistration.userInterests> userInterests) {
+        this.userInterests = userInterests;
+    }
+
+    public CompleteRegistration(String firstName, String lastName, String phoneNum, String dob, ArrayList<userInterests> interests) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNum = phoneNum;
         this.dob = dob;
-        this.interests = interests;
+        this.userInterests = interests;
+    }
+
+    public ArrayList<userInterests> getInterests() {
+        return userInterests;
+    }
+
+    public void setInterests(ArrayList<userInterests> interests) {
+        this.userInterests = interests;
     }
 
     public String getFirstName() {
@@ -62,13 +86,7 @@ public class CompleteRegistration {
         this.dob = dob;
     }
 
-    public List<InterestId> getInterests() {
-        return interests;
-    }
 
-    public void setInterests(List<InterestId> interests) {
-        this.interests = interests;
-    }
 
     public static class InterestId {
         @SerializedName("interest_id")

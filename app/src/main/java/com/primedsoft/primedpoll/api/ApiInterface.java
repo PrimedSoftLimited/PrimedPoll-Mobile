@@ -62,7 +62,7 @@ public interface ApiInterface {
     Call<CompleteRegistration.CompleteRegisterationResponseBody> completeRegF(@Header("Authorization") String s,
                                                                               @Field("first_name") String firstName, @Field("last_name") String lastName,
                                                                               @Field("phone") String phone, @Field("dob") String dob,
-                                                                              @Field("interest_ids") int[] interestIds);
+                                                                              @Field("interest_ids") ArrayList<Interest> interestIds);
 
     @GET("api/interest")
     Call<ArrayList<Interest>> allInterest();

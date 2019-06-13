@@ -93,7 +93,7 @@ public class CompleteReg extends AppCompatActivity {
 //                                    new CompleteRegistration(
 //                                            "frebby", "nama", "9999999999", dob, getInterestId()));
                             Call<CompleteRegistration.CompleteRegisterationResponseBody> call = apiInterface.completeRegF(token,
-                                    first_name, last_name, phone, dob, getInterestIdStr());
+                                    first_name, last_name, phone, dob, getInterestId());
                             call.enqueue(new Callback<CompleteRegistration.CompleteRegisterationResponseBody>() {
                                 @Override
                                 public void onResponse(Call<CompleteRegistration.CompleteRegisterationResponseBody> call,
@@ -155,10 +155,10 @@ public class CompleteReg extends AppCompatActivity {
         });
     }
 
-    private CompleteRegistration.InterestId[] getInterestId() {
-        CompleteRegistration.InterestId[] interestIds = new CompleteRegistration.InterestId[5];
+    private ArrayList<String> getInterestId() {
+        ArrayList<String<CompleteRegistration.InterestId>> interestIds = new ArrayList<>();
 //        ArrayList<CompleteRegistration.InterestId> interestIds = new ArrayList<>();
-        interestIds[0] = new CompleteRegistration.InterestId("4");
+        interestIds.add("0");
         interestIds[1] = new CompleteRegistration.InterestId("3");
         interestIds[2] = new CompleteRegistration.InterestId("2");
         interestIds[3] = new CompleteRegistration.InterestId("1");
