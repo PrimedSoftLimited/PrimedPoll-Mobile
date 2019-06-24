@@ -237,10 +237,7 @@ signUpText.setOnClickListener(new View.OnClickListener() {
                 resetPassword).addToBackStack(null).commit();
         // Set boolean flag to indicate fragment is open.
 
-
-
     }
-
     private void loginUser() {
         email = signInEmail.getText().toString().trim();
         password = signInPassword.getText().toString().trim();

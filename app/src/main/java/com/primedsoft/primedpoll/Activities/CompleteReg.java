@@ -93,7 +93,7 @@ public class CompleteReg extends AppCompatActivity {
 //                                    new CompleteRegistration(
 //                                            "frebby", "nama", "9999999999", dob, getInterestId()));
                             Call<CompleteRegistration.CompleteRegisterationResponseBody> call = apiInterface.completeRegF(token,
-                                    first_name, last_name, phone, dob, getInterestId());
+                                    first_name, last_name, phone, dob, arrayList);
                             call.enqueue(new Callback<CompleteRegistration.CompleteRegisterationResponseBody>() {
                                 @Override
                                 public void onResponse(Call<CompleteRegistration.CompleteRegisterationResponseBody> call,
@@ -155,32 +155,6 @@ public class CompleteReg extends AppCompatActivity {
         });
     }
 
-    private ArrayList<String> getInterestId() {
-        ArrayList<String<CompleteRegistration.InterestId>> interestIds = new ArrayList<>();
-//        ArrayList<CompleteRegistration.InterestId> interestIds = new ArrayList<>();
-        interestIds.add("0");
-        interestIds[1] = new CompleteRegistration.InterestId("3");
-        interestIds[2] = new CompleteRegistration.InterestId("2");
-        interestIds[3] = new CompleteRegistration.InterestId("1");
-        interestIds[4] = new CompleteRegistration.InterestId("5");
-//        interestIds.add(new CompleteRegistration.InterestId("4"));
-//        interestIds.add(new CompleteRegistration.InterestId("3"));
-        return interestIds;
-    }
-
-    private int[] getInterestIdStr() {
-        int[] interestIds = {1, 2, 3, 4, 5, 6};
-//        ArrayList<CompleteRegistration.InterestId> interestIds = new ArrayList<>();
-//        interestIds[0] = "4";
-//        interestIds[1] = "3";
-//        interestIds[2] = "2";
-//        interestIds[3] = "1";
-//        interestIds[4] = "5";
-//        interestIds[5] = "6";
-//        interestIds.add(new CompleteRegistration.InterestId("4"));
-//        interestIds.add(new CompleteRegistration.InterestId("3"));
-        return interestIds;
-    }
 
     public void datePicker(final EditText date) {
         date.setOnClickListener(new View.OnClickListener() {

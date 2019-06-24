@@ -113,10 +113,9 @@
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="8dp">
+    app:cardElevation="16dp">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/selected_interest_recycler"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/selected_interest_item"

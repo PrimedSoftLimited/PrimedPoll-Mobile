@@ -62,8 +62,6 @@ AppCompatButton sendButton;
                                             .replace(R.id.fragment_holder, nextFrag, "findThisFragment")
                                             .addToBackStack(null)
                                             .commit();
-
-
                             }
 
                             @Override
