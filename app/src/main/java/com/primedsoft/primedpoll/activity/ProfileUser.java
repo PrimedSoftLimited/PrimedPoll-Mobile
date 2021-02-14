@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.primedsoft.primedpoll.Adapter.InterestAdapter;
+import com.primedsoft.primedpoll.Adapter.SelectedInterestAdapter;
 import com.primedsoft.primedpoll.R;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +34,7 @@ public class ProfileUser extends AppCompatActivity implements GoogleApiClient.On
     private TextView user_name, user_email, user_phone, user_dob;
     private ImageView profile_img;
     private RecyclerView myInterest;
-    private InterestAdapter myAdapter;
+    private SelectedInterestAdapter myAdapter;
     private GoogleSignInOptions gso;
     private GoogleApiClient googleApiClient;
 
@@ -50,6 +51,15 @@ public class ProfileUser extends AppCompatActivity implements GoogleApiClient.On
         user_email = findViewById(R.id.email);
         user_phone = findViewById(R.id.phone_no);
         user_dob = findViewById(R.id.D_O_B);
+
+        profile_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, 0);
+            }
+        });
 
         myInterest = findViewById(R.id.recycler_interest);
 ////        Rounded images using picasso

@@ -1,24 +1,20 @@
 package com.primedsoft.primedpoll.Activities;
 
 import android.content.Intent;
-<<<<<<< HEAD
-=======
-import android.content.pm.LauncherApps;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-=======
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -29,11 +25,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,9 +36,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
-import com.primedsoft.primedpoll.Data;
+import com.primedsoft.primedpoll.Fragments.ResetPassword;
+import com.primedsoft.primedpoll.Models.Data;
 import com.primedsoft.primedpoll.R;
+import com.primedsoft.primedpoll.activity.ProfileUser;
 import com.primedsoft.primedpoll.activity.SignUp;
 import com.primedsoft.primedpoll.api.ApiInterface;
 import com.primedsoft.primedpoll.api.RetrofitInstance;
@@ -61,13 +56,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignIn2Activity extends AppCompatActivity {
-    EditText signInEmail, signInPassword;
-    String email, password;
-    AppCompatButton signInButton;
-    TextView signUpText;
-<<<<<<< HEAD
-=======
+public class SignIn2Activity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+    EditText signInEmail, signInPassword, typeEmailHereEdit;
+    String email, password, typeEmailHere;
+    AppCompatButton signInButton, sendButton;
+    TextView signUpText, forgotPassword;
     private static final String TAG = "SignInActivity";
     private AppCompatImageButton googleSignInButton;
     private GoogleApiClient googleApiClient;
@@ -80,8 +73,8 @@ public class SignIn2Activity extends AppCompatActivity {
     private LoginButton loginButton;
     private String id;
     private URL profile_pic = null;
+    private String name;
 
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_sign_in2);
@@ -89,23 +82,22 @@ public class SignIn2Activity extends AppCompatActivity {
         signInEmail = findViewById(R.id.sign_in_email);
         signInPassword = findViewById(R.id.sign_in_password);
         signInButton = findViewById(R.id.sign_in_button);
-<<<<<<< HEAD
 signUpText = findViewById(R.id.sign_up_text);
+forgotPassword = findViewById(R.id.forgot_password);
+typeEmailHereEdit = findViewById(R.id.type_email_here);
 signUpText.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         startActivity(new Intent(SignIn2Activity.this, SignUp.class));
     }
 });
-=======
         signUpText = findViewById(R.id.sign_up_text);
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignIn2Activity.this, SignUp2.class));
+                startActivity(new Intent(SignIn2Activity.this, SignUp.class));
             }
         });
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +106,6 @@ signUpText.setOnClickListener(new View.OnClickListener() {
                 loginUser();
             }
         });
-<<<<<<< HEAD
-=======
 
         firebaseAuth = FirebaseAuth.getInstance();
         //this is where we start the Auth state Listener to listen for whether the user is signed in or not
@@ -228,9 +218,26 @@ signUpText.setOnClickListener(new View.OnClickListener() {
                 loginButton.performClick();
             }
         });
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayResetPasswordFrag();
+            }
+        });
     }
+    private void displayResetPasswordFrag() {
+        ResetPassword resetPassword = ResetPassword.newInstance();
+        // Get the FragmentManager and start a transaction.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
 
+        // Add the addNotesFragment.
+        fragmentTransaction.add(R.id.fragment_holder,
+                resetPassword).addToBackStack(null).commit();
+        // Set boolean flag to indicate fragment is open.
+
+    }
     private void loginUser() {
         email = signInEmail.getText().toString().trim();
         password = signInPassword.getText().toString().trim();
@@ -238,13 +245,19 @@ signUpText.setOnClickListener(new View.OnClickListener() {
         if (loginValidation()) return;
 
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
-        Data data = new Data(email, password);
-        apiInterface.login(data.getEmail(),
-                data.getPassword()).enqueue(new Callback<Data>() {
+        Data data1 = new Data(email, password);
+        apiInterface.login(data1.getEmail(),
+                data1.getPassword()).enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
+                Data data = response.body();
                 if (response.code() == 200) {
+                    String token = data != null ? data.getData().getToken() : null;
                     Toast.makeText(SignIn2Activity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(SignIn2Activity.this, AddNewInterest.class);
+                   intent.putExtra("token", "Bearer " + token);
+                   startActivity(intent);
+
                 } else {
                     Toast.makeText(SignIn2Activity.this, "Not logged in", Toast.LENGTH_SHORT).show();
                 }
@@ -252,8 +265,7 @@ signUpText.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onFailure(Call<Data> call, Throwable t) {
-                t.getMessage();
-                Toast.makeText(SignIn2Activity.this, "Connection Error! Restart Network", Toast.LENGTH_LONG).show();
+                Toast.makeText(SignIn2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -281,13 +293,8 @@ signUpText.setOnClickListener(new View.OnClickListener() {
         }
         return false;
     }
-<<<<<<< HEAD
-=======
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -307,6 +314,7 @@ signUpText.setOnClickListener(new View.OnClickListener() {
             name = account != null ? account.getDisplayName() : null;
             email = account != null ? account.getEmail() : null;
             // you can store user data to SharedPreference
+
             AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
             firebaseAuthWithGoogle(credential);
         } else {
@@ -350,5 +358,8 @@ signUpText.setOnClickListener(new View.OnClickListener() {
     }
 
 
->>>>>>> 0ffecd198785f0e56e08472b67980b5665efdc33
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
